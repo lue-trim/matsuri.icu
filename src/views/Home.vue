@@ -1,7 +1,6 @@
 <template>
     <div>
         <h1>{{head_text}}</h1>
-        <div class="alert alert-primary" role="alert">没钱了，被抓穷了，CDN买不起了，告辞~</div>
         <div class="form-group">
             <label for="search_input"> </label>
             <input type="text" v-model="search_query" class="form-control col-12" id="search_input" placeholder="搜索">
@@ -10,7 +9,6 @@
                   :key="channel.bilibili_uid"/>
         <div class="empty"></div>
         <footer class="footer mt-auto py-1">
-                <a href="https://beian.miit.gov.cn/" target="_blank"><span>鄂ICP备2021002054号</span></a>
         </footer>
     </div>
 </template>
@@ -39,7 +37,7 @@ export default {
             showed: 30,
             show_hidden: this.$route.query.hasOwnProperty('hey'),
             webp_support: this.$root.webp_support,
-            head_list: ['别骂了，对不起，ごめんなさい~', '本社爆破~！', '内鬼全鲨了！', '嘉门🙏', 'まつり指的可是麻酱啊', '你们到底是看管人还是看管人观众啊', '你们是在和SC聊天还是在和然然聊天', '海子姐在看吗，在看的话就mua一个', '明前奶绿祝你，早安，午安，晚安']
+            head_list: ['别骂了，对不起，ごめんなさい~', '本社爆破~！', '内鬼全鲨了！', '嘉门🙏', 'まつり指的可是麻酱啊', '你们到底是看管人还是看管人观众啊', '你们是在和SC聊天还是在和然然聊天', '海子姐在看吗，在看的话就mua一个']
         }
     },
     computed: {
@@ -76,7 +74,7 @@ export default {
         if (this.channel_list === null)
             this.$root.loading = true;
         this.$http
-        .get('https://api.matsuri.icu/channel')
+        .get('https://matsuri.luetrim.top/channel')
         .then(function (response) {
             if (response.data.status === 0) {
                 this.channel_data = response.data.data;
