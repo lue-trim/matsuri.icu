@@ -5,7 +5,7 @@ const path = require('path');
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: 'matsuri'
+  base: 'matsuri.icu'
   plugins: [vue()],
   resolve: {
     alias: {
