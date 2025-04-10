@@ -7,6 +7,9 @@ const path = require('path');
 export default defineConfig({
   base: 'matsuri.icu'
   plugins: [vue()],
+  build: {
+    outDir: 'docs'
+  }
   resolve: {
     alias: {
         "@": path.resolve(__dirname, "./src"),
