@@ -20,7 +20,14 @@
     <meta name="msapplication-TileImage" content="/img/icons/msapplication-icon-144x144.png">
     <meta name="msapplication-TileColor" content="#000000">
     <title>ICU for Viewers</title>
-    <link rel="stylesheet" href="https://cdn-font.hyperos.mi.com/font/css?family=MiSans:100,200,300,400,450,500,600,650,700,900:Chinese_Simplify,Latin&display=swap" />
+    <style>
+/* 在线链接服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
+* {
+  font-family: "思源黑体 Regular";font-weight: 400;src: url("//at.alicdn.com/wf/webfont/T8bGg6heKXpr/Kbcz5prxGwIF.woff2") format("woff2"),
+  url("//at.alicdn.com/wf/webfont/T8bGg6heKXpr/nUYtMhV3rfHw.woff") format("woff");
+  font-display: swap;
+}
+    </style>
 </head>
 
 <body>
@@ -30,8 +37,10 @@
     </noscript>
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
-    <p>这里只收集阿叽本身以及联动时的直播弹幕哦~不是所有的场次都会收集哒！</p>
-    <p>Created by brainbush, Rebuilt by lue-trim</p>
+    <div align="center">
+        <p>这里只收集阿叽本身以及联动时的直播弹幕哦~不是所有的场次都会收集哒！</p>
+        <p>Created by brainbush, Rebuilt by lue-trim</p>
+    </div>
 </body>
 
 </html>

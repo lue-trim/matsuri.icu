@@ -3,11 +3,11 @@
         <nav class="navbar navbar-dark bg-dark">
             <div class="container" style="">
                 <div class="navbar-brand">
-                    <router-link :to="{name:'home'}" class="navbar-brand">🍊</router-link>
+                    <router-link :to="{name:'home'}" class="navbar-brand">🍊主页</router-link>
                 </div>
                 <div class="navbar-nav">
                     <div class="nav-item text-white">
-                        <router-link class="nav-link" :to="{name:'about'}">？</router-link>
+                        <router-link class="nav-link" :to="{name:'about'}">关于</router-link>
                     </div>
                 </div>
             </div>
