@@ -1,10 +1,11 @@
-import {createRouter, createWebHistory} from 'vue-router'
+import {createRouter, createWebHashHistory} from 'vue-router'
 
 import Home from "@/views/Home";
 import Channel from "@/views/Channel";
 import Detail from "@/views/Detail";
 import Viewer from "@/views/Viewer"
 import About from "@/views/About";
+import NotFound from "@/views/NotFound";
 
 const routes = [
     {path: '/', name: 'home', component: Home},
@@ -12,13 +13,14 @@ const routes = [
     {path: '/detail/:id', name: 'detail', component: Detail},
     {path: '/viewer/:id', name: 'viewer', component: Viewer},
     {path: '/about', name: 'about', component: About},
-    {path: '/:catchAll', redirect: '/'}
+    {path: '/:pathMatch(.*)', name: 'NotFound', component: NotFound}
     // {path: '/:catchAll(.*)', redirect: '/'}
 ];
 
 const router = createRouter({
     mode: 'hash',//history
-    history: createWebHistory(),
+    base: import.meta.env.BASE_URL,
+    history: createWebHashHistory(import.meta.env.BASE_URL),
     // history: createWebHistory(import.meta.env.BASE_URL),
     routes: routes
 })
