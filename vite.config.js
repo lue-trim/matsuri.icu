@@ -5,7 +5,8 @@ const path = require('path');
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/matsuri.icu',
+  base: '/matsuri.icu/',
+  publicPath: '/matsuri.icu/',
   plugins: [vue()],
   build: {
     outDir: 'docs'

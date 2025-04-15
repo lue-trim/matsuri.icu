@@ -164,13 +164,14 @@
         color: #212529;
     }
 
-    a:hover {
-        text-decoration: underline;
-        color: #212529;
-    }
-
     a:visited {
         text-decoration: none;
         color: #212529;
+    }
+
+    a:hover {
+        text-decoration: none;
+        color: #212529;
+        /* background: #80808040; */
     }
 </style>

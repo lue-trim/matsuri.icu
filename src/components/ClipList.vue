@@ -226,12 +226,12 @@ a:active {
     color: #212529;
 }
 
-a:hover {
-    text-decoration: underline;
+a:visited {
+    text-decoration: none;
     color: #212529;
 }
 
-a:visited {
+a:hover {
     text-decoration: none;
     color: #212529;
 }

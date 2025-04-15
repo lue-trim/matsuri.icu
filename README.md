@@ -8,8 +8,8 @@
 手搓的python后端： https://github.com/lue-trim/matsuri-api
 
 ## 构建环境
-环境没什么特别的..就是一个普通的node环境  
-> 我是直接在conda里装了个nodejs就跑起来了
+环境没什么特别的..就是一个普通的vue+vite环境  
+> 我是直接在conda里装了个nodejs和vite就莫名其妙地跑起来了
 
 ## 构建过程
 1. 安装依赖项

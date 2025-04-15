@@ -21,15 +21,26 @@
     <meta name="msapplication-TileColor" content="#000000">
     <title>ICU for Viewers</title>
     <style>
-* {
-  font-family: "阿里巴巴普惠体 2.0 55 Regular";font-weight: 400;src: url("//at.alicdn.com/wf/webfont/T8bGg6heKXpr/E29fMCvGwssR.woff2") format("woff2"),
-  url("//at.alicdn.com/wf/webfont/T8bGg6heKXpr/lCDbIbWcVetI.woff") format("woff");
-  font-display: swap;
-}
+        * {
+            font-family: "阿里巴巴普惠体 2.0 65 Medium";font-weight: 400;src: url("//cdn.jsdelivr.net/gh/lue-trim/lue-trim.github.io/static/font/3rfuFKwVRC0r.woff2") format("woff2"),
+            url("//cdn.jsdelivr.net/gh/lue-trim/lue-trim.github.io/static/font/3rfuFKwVRC0r.woff") format("woff");
+            font-display: swap;
+        }
+        ::selection {
+            background: #80abff80;
+            /* color: #000000; */
+        }
+        .bg {
+            background-image: linear-gradient(to bottom, var(--my-color), var(--my-color)), url(//cdn.jsdelivr.net/gh/lue-trim/lue-trim.github.io/static/queen.jpg) !important;
+            background-repeat: no-repeat !important;
+            background-size: cover !important;
+            background-attachment: fixed !important;
+            background-position-x: center !important;
+        }
     </style>
 </head>
 
-<body>
+<body class="bg">
     <noscript>
         <strong>We're sorry but matsuri.icu doesn't work properly without JavaScript enabled. Please enable it to
             continue.</strong>
@@ -37,8 +48,9 @@
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
     <div align="center">
+        <p><hr></p>
         <p>这里只收集阿叽本身以及联动时的直播弹幕哦~不是所有的场次都会收集哒！</p>
-        <p>Created by brainbush, Rebuilt by lue-trim</p>
+        <p>Created by brainbush, Modified by lue-trim</p>
     </div>
 </body>
 

@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <nav class="navbar navbar-dark bg-dark">
+        <nav class="navbar navbar-light bg-light">
             <div class="container" style="">
                 <div class="navbar-brand">
                     <router-link :to="{name:'home'}" class="navbar-brand">🍊主页</router-link>
@@ -53,12 +53,49 @@ export default {
 
 <style lang="scss">
 .container, .canvas {
-  max-width: 1140px !important;
+    max-width: 1140px !important;
 }
 
 hr {
-  border-top: 1px solid rgba(0, 0, 0, .1) !important;
+    border-top: 1px solid #80abffc0 !important;
 }
 
+/* button{
+    border: solid #ff80ab80;
+    background: #ffffff80;
+}
+button:hover{
+    border: solid #ff80ab40;
+    background: #ff80ab40;
+}
+button:active{
+    border: solid #ff80ab;
+    background: #ff80ab;
+} */
+
+a {
+    padding: 10px;
+    color: #212529;
+    display: inline flex;
+    /* justify-content: center; */
+    /* margin: 10px 0; */
+    transition: .25s;
+    border-radius: 10px;
+    background: #ff80ab00;
+}
+a:link{
+    color: #80abff;
+}
+a:visited {
+    color: #80abff;
+}
+a:hover {
+    padding: 0, 10px;
+    background: #80abff60;
+    color: #212529;
+    /* text-decoration: none; */
+    border-radius: 10px;
+    /* margin: 10px 0; */
+}
 @import "node_modules/bootstrap/scss/bootstrap";
 </style>

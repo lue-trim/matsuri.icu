@@ -11,7 +11,7 @@
                 <div class="col ms-4">
                     <div class="row">
                         <h5>{{channel.name}}
-                            <a target="_blank" rel="noopener noreferrer" :href="live_url" v-if="channel.is_live">
+                            <a target="_blank" rel="noopener noreferrer" :href="live_url" v-if="channel.is_live" >
                                 <span class="badge bg-primary">直播中</span>
                             </a>
                         </h5>
@@ -123,6 +123,9 @@ export default {
 .badge {
     margin-left: 5px;
 }
+.badge:hover{
+    background-color: #ffffff00;
+}
 
 .container-row {
     padding-left: 30px;
@@ -136,5 +139,9 @@ export default {
 
 .tag_value {
     font-size: 20px;
+}
+
+a:link {
+    text-decoration: none;
 }
 </style>
