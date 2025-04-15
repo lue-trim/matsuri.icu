@@ -1,108 +1,108 @@
 <template>
-    <div>
-        <div class="container container-row">
-            <div class="d-flex flex-wrap">
-                <div v-if="!this.clip.end_time || this.detail_view">
-                    <img class="image_container_clip_list" alt="" :src="cover">
-                </div>
-                <div v-else>
-                    <router-link :to="{name:'detail',params:{id:clip.id}}">
+    <div class="container container-row">
+        <router-link class="container container-row" :to="{name:'detail',params:{id:clip.id}}">
+            <div class="container container-row">
+                <div class="d-flex flex-wrap">
+                    <div v-if="!this.clip.end_time || this.detail_view" style="align-content:center">
                         <img class="image_container_clip_list" alt="" :src="cover">
-                    </router-link>
-                </div>
-                <div class="w-100 d-sm-none"/>
-                <div class="col ms-0 ms-sm-4">
-                    <div class="row">
-                        <div v-if="!this.clip.end_time || this.detail_view">
-                            <h5>{{clip.title}}</h5>
-                        </div>
-                        <div v-else>
-                            <router-link :to="{name:'detail',params:{id:clip.id}}">
+                    </div>
+                    <div v-else style="align-content:center">
+                        <router-link :to="{name:'detail',params:{id:clip.id}}">
+                            <img class="image_container_clip_list" alt="" :src="cover">
+                        </router-link>
+                    </div>
+                    <div class="w-100 d-sm-none"/>
+                    <div class="col ms-0 ms-sm-4">
+                        <div class="row">
+                            <div v-if="!this.clip.end_time || this.detail_view">
                                 <h5>{{clip.title}}</h5>
-                            </router-link>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div v-if="detail_view" class="col-12 col-sm-6 col-md">
-                            <div class="row">
-                                <div class="tag_name">频道</div>
                             </div>
-                            <div class="row">
-                                <a :href="space" target="_blank" rel="noopener noreferrer">
-                                    <div class="tag_value">{{channel_name}}</div>
-                                </a>
+                            <div v-else>
+                                    <h5>{{clip.title}}</h5>
                             </div>
                         </div>
-                        <div class="col-12 col-sm-6 col-md">
-                            <div class="row">
-                                <div class="tag_name">开始</div>
+                        <div class="row">
+                            <div v-if="detail_view" class="col-12 col-sm-6 col-md">
+                                <div class="row">
+                                    <div class="tag_name">频道</div>
+                                </div>
+                                <div class="row">
+                                    <a :href="space" target="_blank" rel="noopener noreferrer">
+                                        <div class="tag_value">{{channel_name}}</div>
+                                    </a>
+                                </div>
                             </div>
-                            <div class="row">
-                                <div class="tag_value">{{start_time}}</div>
+                            <div class="col-12 col-sm-6 col-md">
+                                <div class="row">
+                                    <div class="tag_name">开始</div>
+                                </div>
+                                <div class="row">
+                                    <div class="tag_value">{{start_time}}</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md">
-                            <div class="row">
-                                <div class="tag_name">结束</div>
+                            <div class="col-12 col-sm-6 col-md">
+                                <div class="row">
+                                    <div class="tag_name">结束</div>
+                                </div>
+                                <div class="row">
+                                    <div class="tag_value">{{end_time}}</div>
+                                </div>
                             </div>
-                            <div class="row">
-                                <div class="tag_value">{{end_time}}</div>
+                            <div class="col-12 col-sm-6 col-md">
+                                <div class="row">
+                                    <div class="tag_name">弹幕</div>
+                                </div>
+                                <div class="row">
+                                    <div class="tag_value">{{total_danmu}}</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md">
-                            <div class="row">
-                                <div class="tag_name">弹幕</div>
-                            </div>
-                            <div class="row">
-                                <div class="tag_value">{{total_danmu}}</div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md">
-                            <div class="row">
-                                <div class="tag_name">观看人数</div>
-                            </div>
-                            <div class="row">
-                                <div class="tag_value">{{total_views}}</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row pt-1" v-if="this.detail_view">
-                        <div class="col-12 col-sm-6 col-md">
-                            <div class="row">
-                                <div class="tag_name">弹幕密度</div>
-                            </div>
-                            <div class="row">
-                                <div class="tag_value">{{danmu_density}}个/分钟</div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md">
-                            <div class="row">
-                                <div class="tag_name">礼物收益</div>
-                            </div>
-                            <div class="row">
-                                <div class="tag_value">￥{{total_gift}}</div>
+                            <div class="col-12 col-sm-6 col-md">
+                                <div class="row">
+                                    <div class="tag_name">观看人数</div>
+                                </div>
+                                <div class="row">
+                                    <div class="tag_value">{{total_views}}</div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-12 col-sm-6 col-md">
-                            <div class="row">
-                                <div class="tag_name">SuperChat收益</div>
+                        <div class="row pt-1" v-if="this.detail_view">
+                            <div class="col-12 col-sm-6 col-md">
+                                <div class="row">
+                                    <div class="tag_name">弹幕密度</div>
+                                </div>
+                                <div class="row">
+                                    <div class="tag_value">{{danmu_density}}个/分钟</div>
+                                </div>
                             </div>
-                            <div class="row">
-                                <div class="tag_value">￥{{total_superchat}}</div>
+                            <div class="col-12 col-sm-6 col-md">
+                                <div class="row">
+                                    <div class="tag_name">礼物收益</div>
+                                </div>
+                                <div class="row">
+                                    <div class="tag_value">￥{{total_gift}}</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-12 col-sm-6 col-md">
-                            <div class="row">
-                                <div class="tag_name">合计收益</div>
+                            <div class="col-12 col-sm-6 col-md">
+                                <div class="row">
+                                    <div class="tag_name">SuperChat收益</div>
+                                </div>
+                                <div class="row">
+                                    <div class="tag_value">￥{{total_superchat}}</div>
+                                </div>
                             </div>
-                            <div class="row">
-                                <div class="tag_value">￥{{total_reward}}</div>
+                            <div class="col-12 col-sm-6 col-md">
+                                <div class="row">
+                                    <div class="tag_name">合计收益</div>
+                                </div>
+                                <div class="row">
+                                    <div class="tag_value">￥{{total_reward}}</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </router-link>
         <div class="row" v-if="!viewer_view">
             <div class="col-12">
                 <hr>
@@ -203,8 +203,8 @@ export default {
 }
 
 .container-row {
-    padding-left: 30px;
-    padding-right: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .tag_name {

@@ -1,14 +1,12 @@
 <template>
-    <div class="row">
+    <div class="row" style="display: grid;">
         <div class="col-12">
             <hr>
         </div>
-        <div class="container container-row">
-            <div class="d-flex">
-                <router-link :to="{name:'channel',params:{channel:channel.bilibili_uid}}">
-                    <img class="image_container" alt="" :src="face">
-                </router-link>
-                <div class="col ms-4">
+        <router-link :to="{name:'channel',params:{channel:channel.bilibili_uid}}" style="display: flex;">
+            <div class="d-flex container container-row"  style="display: flex;">
+                <img class="image_container" alt="" :src="face">
+                <div class="col ms-4" style="display: grid;">
                     <div class="row">
                         <h5>{{channel.name}}
                             <a target="_blank" rel="noopener noreferrer" :href="live_url" v-if="channel.is_live" >
@@ -52,9 +50,8 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </router-link>
     </div>
-
 </template>
 
 <script>
@@ -114,6 +111,7 @@ export default {
 <style scoped>
 
 .image_container {
+    align-self: center;
     width: 100px;
     height: 100px;
     background-size: cover;
@@ -132,16 +130,27 @@ export default {
     padding-right: 30px;
 }
 
+.col-md{
+    display: grid;
+}
+
+.row {
+    display: flex;
+    align-self: center;
+}
+
 .tag_name {
-    color: rgba(0, 0, 0, .45);
+    color: rgba(0, 0, 0, .55);
     font-size: 13px;
 }
 
 .tag_value {
     font-size: 20px;
+    align-self: flex-start;
 }
 
 a:link {
+    color: #212121;
     text-decoration: none;
 }
 </style>

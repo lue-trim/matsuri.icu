@@ -21,9 +21,9 @@
     <meta name="msapplication-TileColor" content="#000000">
     <title>ICU for Viewers</title>
     <style>
-        * {
-            font-family: "阿里巴巴普惠体 2.0 65 Medium";font-weight: 400;src: url("//cdn.jsdelivr.net/gh/lue-trim/lue-trim.github.io/static/font/3rfuFKwVRC0r.woff2") format("woff2"),
-            url("//cdn.jsdelivr.net/gh/lue-trim/lue-trim.github.io/static/font/3rfuFKwVRC0r.woff") format("woff");
+        @font-face {
+            font-family: "阿里巴巴普惠体 2.0 65 Medium";font-weight: 400;src: url("https://cdn.jsdelivr.net/gh/lue-trim/lue-trim.github.io/static/font/3rfuFKwVRC0r.woff2") format("woff2"),
+            url("https://cdn.jsdelivr.net/gh/lue-trim/lue-trim.github.io/static/font/3rfuFKwVRC0r.woff") format("woff");
             font-display: swap;
         }
         ::selection {
@@ -31,11 +31,14 @@
             /* color: #000000; */
         }
         .bg {
-            background-image: linear-gradient(to bottom, var(--my-color), var(--my-color)), url(//cdn.jsdelivr.net/gh/lue-trim/lue-trim.github.io/static/queen.jpg) !important;
+            background-image: linear-gradient(to bottom, var(--my-color), var(--my-color)), url(https://cdn.jsdelivr.net/gh/lue-trim/lue-trim.github.io/static/queen.jpg) !important;
             background-repeat: no-repeat !important;
             background-size: cover !important;
             background-attachment: fixed !important;
             background-position-x: center !important;
+        }
+        * {
+            font-family: "阿里巴巴普惠体 2.0 65 Medium";
         }
     </style>
 </head>
