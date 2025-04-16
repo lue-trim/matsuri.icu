@@ -153,4 +153,8 @@ a:link {
     color: #212121;
     text-decoration: none;
 }
+a:visited {
+    color: #212121;
+    text-decoration: none;
+}
 </style>
