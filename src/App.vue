@@ -1,9 +1,9 @@
 <template>
     <div id="app">
-        <nav class="navbar navbar-light bg-light">
-            <div class="container" style="">
+        <!-- <nav class="navbar navbar-light bg-light topbar">
+            <div class="container">
                 <div class="navbar-brand">
-                    <router-link :to="{name:'home'}" class="navbar-brand">🍊主页</router-link>
+                    <router-link :to="{name:'home'}" class="navbar-brand">🍊弹幕站主页</router-link>
                 </div>
                 <div class="navbar-nav">
                     <div class="nav-item text-white">
@@ -11,7 +11,7 @@
                     </div>
                 </div>
             </div>
-        </nav>
+        </nav> -->
         <div class="d-flex justify-content-center align-items-center" v-if="loading"
              style="position: fixed; width: 100%;height: 100%;z-index: 2;background-color: rgba(255,255,255,0.5)">
             <div class="spinner-border" role="status">
@@ -52,9 +52,9 @@ export default {
 </script>
 
 <style lang="scss">
-.container, .canvas {
+/* .container, .canvas {
     max-width: 1140px !important;
-}
+} */
 
 hr {
     border-top: 1px solid #80abffc0 !important;
@@ -73,29 +73,11 @@ button:active{
     background: #ff80ab;
 } */
 
-a {
-    padding: 10px;
-    color: #212529;
-    display: inline flex;
-    /* justify-content: center; */
-    /* margin: 10px 0; */
-    transition: .25s;
-    border-radius: 10px;
-    background: #ff80ab00;
+.topbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
 }
-a:link{
-    color: #80abff;
-}
-a:visited {
-    color: #80abff;
-}
-a:hover {
-    padding: 0, 10px;
-    background: #80abff60;
-    color: #212529;
-    /* text-decoration: none; */
-    border-radius: 10px;
-    /* margin: 10px 0; */
-}
+
 @import "node_modules/bootstrap/scss/bootstrap";
 </style>
