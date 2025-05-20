@@ -171,7 +171,7 @@ export default {
             else full_comments = this.full_comments.filter(comment => comment.time >= this.time_range.start && comment.time <= this.time_range.end)
             if (this.state === 0) {
                 if (this.search_text.length === 0) return full_comments;
-                return full_comments.filter(comment => comment.text !== undefined && comment.text.includes(this.search_text))
+                return full_comments.filter(comment => comment.text.includes(this.search_text) || comment.username.includes(this.search_text))
             } else if (this.state === 1) {
                 if (this.translated_comments.length === 0) this.get_translate_comments();
                 return this.translated_comments;
