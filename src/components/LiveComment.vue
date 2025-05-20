@@ -7,7 +7,7 @@
             <span class="sc-price">SC ￥{{ superchat_price }}</span>
             <span class="sc-text">{{ text }}</span>
         </div>
-        <div v-else-if="this.text && !this.superchat_price" class="normal-text">
+        <div v-else-if="!this.gift_price && !this.superchat_price" class="normal-text">
             <span class="normal-text">{{ text }}</span>
         </div>
         <div v-else class="gift-container">
