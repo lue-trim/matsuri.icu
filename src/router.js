@@ -6,12 +6,14 @@ import Detail from "@/views/Detail";
 import Viewer from "@/views/Viewer"
 import About from "@/views/About";
 import NotFound from "@/views/NotFound";
+import DanmakuSearch from "@/views/DanmakuSearch";
 
 const routes = [
     {path: '/', name: 'home', component: Home},
     {path: '/channel/:channel', name: 'channel', component: Channel},
     {path: '/detail/:id', name: 'detail', component: Detail},
     {path: '/viewer/:id', name: 'viewer', component: Viewer},
+    {path: '/search/:danmaku', name: 'danmaku_search', component: DanmakuSearch},
     {path: '/about', name: 'about', component: About},
     {path: '/:pathMatch(.*)', name: 'NotFound', component: NotFound}
     // {path: '/:catchAll(.*)', redirect: '/'}

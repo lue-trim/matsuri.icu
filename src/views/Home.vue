@@ -3,7 +3,14 @@
         <h1>{{head_text}}</h1>
         <div class="form-group">
             <label for="search_input"> </label>
-            <input type="text" v-model="search_query" class="form-control col-12" id="search_input" placeholder="搜索">
+            <input type="text" v-model="search_query" class="form-control col-12" id="search_input" placeholder="直播间筛选">
+        </div>
+        <div class="form-group">
+            <label for="danmakus_search_input"> </label>
+            <div class="col-auto">
+                <input type="text" v-model="danmakus_query" class="form-control col-12" id="danmakus_search_input" placeholder="弹幕关键词">
+                <router-link :to="{ path:'/search/' + danmakus_query }">全局搜索</router-link>
+            </div>
         </div>
         <CardList v-for="channel in display_result" :channel="channel" :webp_support="webp_support"
                   :key="channel.bilibili_uid"/>
@@ -34,9 +41,10 @@ export default {
             channel_data: JSON.parse(localStorage.getItem('channel_list') || "[]").sort(true_compare),
             channel_list: [],
             search_query: null,
+            danmakus_query: null,
             showed: 30,
-            show_hidden: this.$route.query.hasOwnProperty('hey'),
-            webp_support: this.$root.webp_support,
+            show_hidden: this.show_hidden,
+            webp_support: this.webp_support,
             head_list: ['✧ε♡зwase✧ε♡зwase✧ε♡зwase✧', '麻酱弹幕站储备粮复刻版', '嗝……果咩']
         }
     },
@@ -63,6 +71,9 @@ export default {
         search_query: function () {
             this.showed = 30
         },
+        danmakus_query: function (val) {
+            this.danmakus_query = val
+        },
         channel_data: function (val) {
             if (this.show_hidden) this.channel_list = val.slice().sort(true_compare);
             else this.channel_list = val.filter(channel => channel.hidden === false).slice().sort(true_compare);
@@ -73,6 +84,8 @@ export default {
         window.addEventListener('scroll', this.scrollFunc);
         if (this.channel_list === null)
             this.$root.loading = true;
+        this.show_hidden = this.$route.query.hasOwnProperty('hey');
+        this.webp_support = this.$root.webp_support;
         this.$http
         .get('https://matsuri.luetrim.top/channel')
         .then(function (response) {
