@@ -1,13 +1,13 @@
 <template>
     <div class="d-flex comment">
-        {{ time }}
+        {{ time }}({{ relative_time }})
         <a target="_blank" rel="noopener noreferrer" class="username"
            :href="'https://space.bilibili.com/'+user_id">{{ username }}</a>
         <div v-if="this.superchat_price" class="sc-container">
             <span class="sc-price">SC ￥{{ superchat_price }}</span>
             <span class="sc-text">{{ text }}</span>
         </div>
-        <div v-else-if="!this.gift_price && !this.superchat_price" class="normal-text">
+        <div v-else-if="!this.gift_name && !this.superchat_price" class="normal-text">
             <span class="normal-text">{{ text }}</span>
         </div>
         <div v-else class="gift-container">
@@ -26,7 +26,10 @@ export default {
     },
     computed: {
         time: function () {
-            return this.$moment(this.comment.time).format('HH:mm:ss.SSS')
+            return this.$moment(this.comment.time).format('YY-MM-DD HH:mm')
+        },
+        relative_time: function(){
+            return this.$moment.utc(this.comment.relative_time).format('H:mm:ss.SS')
         },
         text: function () {
             if (this.comment)

@@ -225,6 +225,7 @@ export default {
             this.showed = 500;
         },
         get_comments: function () {
+            let start_time = this.clip_info.start_time;
             this.show_comments = true;
             this.$root.loading = true;
             this.$http
@@ -234,6 +235,7 @@ export default {
                     let full_comments = [];
                     response.data.data.forEach(function (comment, i) {
                         comment.i = i;
+                        comment.relative_time = comment.time - start_time;
                         full_comments.push(comment)
                     });
                     this.full_comments = full_comments;
