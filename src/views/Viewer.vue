@@ -34,7 +34,7 @@ export default {
             is_end: false,
             page: 0,
             recaptcha_succeed: false,
-            recaptcha_sitekey: '6LdfylIbAAAAAN-SejK19mLMPkEtfrMVohDPa6oe',
+            recaptcha_sitekey: '6Le9TEcrAAAAALkDmfCx7gw2cskKN7LbSWsqZ1CR',
             recaptcha_token: "",
             webp_support: this.$root.webp_support
         }

@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex comment">
-        {{ time }}({{ relative_time }})
+        {{ time }} ({{ relative_time }})
         <a target="_blank" rel="noopener noreferrer" class="username"
            :href="'https://space.bilibili.com/'+user_id">{{ username }}</a>
         <div v-if="this.superchat_price" class="sc-container">
@@ -26,10 +26,10 @@ export default {
     },
     computed: {
         time: function () {
-            return this.$moment(this.comment.time).format('YY-MM-DD HH:mm')
+            return this.$moment(this.comment.time).format('YY/MM/DD HH:mm ')
         },
         relative_time: function(){
-            return this.$moment.utc(this.comment.relative_time).format('H:mm:ss.SS')
+            return this.$moment.utc(this.comment.relative_time).format('H:mm:ss')
         },
         text: function () {
             if (this.comment)
