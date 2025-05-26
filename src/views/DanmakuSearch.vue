@@ -1,6 +1,9 @@
 <template>
     <div>
-        <div>
+        <div v-if="!recaptcha_succeed">
+            <div id="recaptcha"/>
+        </div>
+        <div v-if="recaptcha_succeed">
             <div v-for="clip in data" :key="clip.clip_info.id">
                 <ClipList :clip="clip.clip_info" :detail_view="true" :viewer_view="true" :webp_support="webp_support"/>
                 <div class="container comment-container">
@@ -31,7 +34,7 @@ export default {
             is_end: false,
             page: 0,
             recaptcha_succeed: false,
-            recaptcha_sitekey: '6Le9TEcrAAAAALkDmfCx7gw2cskKN7LbSWsqZ1CR',
+            recaptcha_sitekey: '6Ld-00grAAAAAClw76z0Fuu9IjX8NeKJKvbaF0oM',
             recaptcha_token: "",
             webp_support: this.$root.webp_support
         }

@@ -1,6 +1,6 @@
 <template>
-    <div class="d-flex comment">
-        {{ time }} {{ relative_time }}
+    <div class="d-flex comment" style="align-items: center;">
+        {{ time }} <span v-if="relative_time"> {{ relative_time }}</span>
         <a target="_blank" rel="noopener noreferrer" class="username"
            :href="'https://space.bilibili.com/'+user_id">{{ username }}</a>
         <div v-if="this.superchat_price" class="sc-container">
@@ -29,7 +29,14 @@ export default {
             return this.$moment(this.comment.time).format('YY/MM/DD HH:mm ')
         },
         relative_time: function(){
-            return this.$moment.utc(this.comment.relative_time).format('(H:mm:ss)')
+            // console.log(this.comment.relative_time)
+            let relative_time = this.comment.relative_time;
+            if (relative_time){
+                return this.$moment.utc(this.comment.relative_time).format('（H:mm:ss）');
+            }
+            else{
+                return null;
+            }
         },
         text: function () {
             if (this.comment)

@@ -3,13 +3,15 @@
         <h1>{{head_text}}</h1>
         <div class="form-group">
             <label for="search_input"> </label>
-            <input type="text" v-model="search_query" class="form-control col-12" id="search_input" placeholder="直播间筛选">
+            <input type="text" v-model="search_query" class="form-control" id="search_input" placeholder="直播间筛选">
         </div>
         <div class="form-group">
             <label for="danmakus_search_input"> </label>
-            <div class="col-auto">
-                <input type="text" v-model="danmakus_query" class="form-control col-12" id="danmakus_search_input" placeholder="弹幕关键词">
-                <router-link :to="{ path:'/search/' + danmakus_query }">全局搜索</router-link>
+            <div class="col-auto" style="display: flex">
+                <input type="text" v-model="danmakus_query" class="form-control" id="danmakus_search_input" placeholder="弹幕关键词">
+                <router-link :to="{ path:'/search/' + danmakus_query }" tag='button' class="btn btn-primary" style="width:200px">
+                    全局搜索
+                </router-link>
             </div>
         </div>
         <CardList v-for="channel in display_result" :channel="channel" :webp_support="webp_support"
