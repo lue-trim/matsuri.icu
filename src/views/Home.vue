@@ -10,7 +10,7 @@
             <div class="col-auto" style="display: flex">
                 <input type="text" v-model="danmakus_query" class="form-control" id="danmakus_search_input" placeholder="弹幕关键词">
                 <router-link :to="{ path:'/search/' + danmakus_query }" tag='button' class="btn btn-primary" style="width:200px">
-                    全局搜索
+                    全局弹幕搜索
                 </router-link>
             </div>
         </div>
