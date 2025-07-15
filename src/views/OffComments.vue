@@ -68,7 +68,7 @@
                     return;
                 let date = this.comment_date_input.replace(/-/g, '');
                 this.$parent.$parent.loading = true;
-                let url = 'https://matsuri.luetrim.top/off_comments/' + this.uid.toString() + '/' + date;
+                let url = '//matsuri.luetrim.top/off_comments/' + this.uid.toString() + '/' + date;
                 this.$http.get(url).then(function (response) {
                     if (response.data.status === 0) {
                         this.$parent.$parent.loading = false;

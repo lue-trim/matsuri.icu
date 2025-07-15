@@ -193,7 +193,7 @@ export default {
         this.$root.loading = true;
         window.addEventListener('scroll', this.scrollFunc);
         this.$http
-        .get('https://matsuri.luetrim.top/clip/' + this.id)
+        .get('//matsuri.luetrim.top/clip/' + this.id)
         .then(function (response) {
             if (response.data.status === 0) {
                 this.data = response.data.data;
@@ -229,7 +229,7 @@ export default {
             this.show_comments = true;
             this.$root.loading = true;
             this.$http
-            .get('https://matsuri.luetrim.top/clip/' + this.id + '/comments')
+            .get('//matsuri.luetrim.top/clip/' + this.id + '/comments')
             .then(function (response) {
                 if (response.data.status === 0) {
                     let full_comments = [];

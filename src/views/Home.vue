@@ -89,7 +89,7 @@ export default {
         this.show_hidden = this.$route.query.hasOwnProperty('hey');
         this.webp_support = this.$root.webp_support;
         this.$http
-        .get('https://matsuri.luetrim.top/channel')
+        .get('//matsuri.luetrim.top/channel')
         .then(function (response) {
             if (response.data.status === 0) {
                 this.channel_data = response.data.data;
