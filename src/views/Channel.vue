@@ -46,6 +46,7 @@
     export default {
         name: "ChannelPage",
         components: {ClipList, OffComments},
+        inject: ['apiRoot'],
         data() {
             return {
                 channel_info: {},
@@ -82,7 +83,7 @@
             get_list: function () {
                 let url;
                 this.$root.loading = true;
-                url = '//matsuri.luetrim.top/channel/' + this.channel.toString() + '/clips';
+                url = this.apiRoot + '/channel/' + this.channel.toString() + '/clips';
                 this.$http
                     .get(url)
                     .then(function (response) {
@@ -104,7 +105,7 @@
             if (Object.entries(this.channel_info).length === 0) {
                 console.log('Fetch channel info');
                 this.$http
-                    .get('//matsuri.luetrim.top/channel/' + this.channel.toString())
+                    .get(apiRoot + '/channel/' + this.channel.toString())
                     .then(function (response) {
                         if (response.data.status === 0) {
                             this.channel_info = response.data.data;

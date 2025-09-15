@@ -8,9 +8,9 @@
         <div class="form-group">
             <label for="danmakus_search_input"> </label>
             <div class="col-auto" style="display: flex">
-                <input type="text" v-model="danmakus_query" class="form-control" id="danmakus_search_input" placeholder="弹幕关键词">
-                <router-link :to="{ path:'/search/' + danmakus_query }" tag='button' class="btn btn-primary" style="width:200px">
-                    全局弹幕搜索
+                <!-- <input type="text" v-model="danmakus_query" class="form-control" id="danmakus_search_input" placeholder="弹幕关键词"> -->
+                <router-link :to="{ path:'/search/' }" tag='button' class="btn btn-primary form-control"> <!-- style="width:200px"> -->
+                    数据库检索
                 </router-link>
             </div>
         </div>
@@ -38,6 +38,7 @@ function true_compare(a, b) {
 export default {
     name: "HomePage",
     components: {CardList},
+    inject: ['apiRoot'],
     data() {
         return {
             channel_data: JSON.parse(localStorage.getItem('channel_list') || "[]").sort(true_compare),
@@ -89,7 +90,7 @@ export default {
         this.show_hidden = this.$route.query.hasOwnProperty('hey');
         this.webp_support = this.$root.webp_support;
         this.$http
-        .get('//matsuri.luetrim.top/channel')
+        .get(this.apiRoot + '/channel')
         .then(function (response) {
             if (response.data.status === 0) {
                 this.channel_data = response.data.data;

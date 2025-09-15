@@ -31,6 +31,7 @@
     export default {
         name: "OffComments",
         components: {LiveComment, DatePicker},
+        inject: ['apiRoot'],
         props: {
             uid: Number
         }, data() {
@@ -68,7 +69,7 @@
                     return;
                 let date = this.comment_date_input.replace(/-/g, '');
                 this.$parent.$parent.loading = true;
-                let url = '//matsuri.luetrim.top/off_comments/' + this.uid.toString() + '/' + date;
+                let url = this.apiRoot + '/off_comments/' + this.uid.toString() + '/' + date;
                 this.$http.get(url).then(function (response) {
                     if (response.data.status === 0) {
                         this.$parent.$parent.loading = false;

@@ -66,7 +66,7 @@ export default {
         load_more() {
             this.$root.loading = true;
             this.$http
-            .get(`//matsuri.luetrim.top/search/${this.danmaku}?page=${++this.page}`, {headers: {token: this.recaptcha_token}})
+            .get(this.apiRoot + `/search/${this.danmaku}?page=${++this.page}`, {headers: {token: this.recaptcha_token}})
             .then(function (response) {
                 if (response.data.status === 0) {
                     this.data = this.data.concat(response.data.data);

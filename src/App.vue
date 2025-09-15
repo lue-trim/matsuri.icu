@@ -28,6 +28,11 @@
 export default {
     name: 'app',
     components: {},
+    provide() {
+        return {
+            apiRoot: "https://matsuri.luetrim.top"
+        }
+    },
     data() {
         return {
             loading: false,

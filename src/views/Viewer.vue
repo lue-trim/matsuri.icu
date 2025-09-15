@@ -26,6 +26,7 @@ import LiveComment from "@/components/LiveComment";
 export default {
     name: "ViewerPage",
     components: {ClipList, LiveComment},
+    inject: ['apiRoot'],
     data() {
         return {
             id: this.$route.params.id,
@@ -65,7 +66,7 @@ export default {
         load_more() {
             this.$root.loading = true;
             this.$http
-            .get(`//matsuri.luetrim.top/viewer/${this.id}?page=${++this.page}`, {headers: {token: this.recaptcha_token}})
+            .get(this.apiRoot+`/viewer/${this.id}?page=${++this.page}`, {headers: {token: this.recaptcha_token}})
             .then(function (response) {
                 if (response.data.status === 0) {
                     this.data = this.data.concat(response.data.data);

@@ -91,6 +91,7 @@ export default {
     name: "DetailPage",
     components: {ClipList, LiveComment, 'v-chart': VChart},
 
+    inject: ['apiRoot'],
     data() {
         return {
             id: this.$route.params.id,
@@ -193,7 +194,7 @@ export default {
         this.$root.loading = true;
         window.addEventListener('scroll', this.scrollFunc);
         this.$http
-        .get('//matsuri.luetrim.top/clip/' + this.id)
+        .get(this.apiRoot + '/clip/' + this.id)
         .then(function (response) {
             if (response.data.status === 0) {
                 this.data = response.data.data;
