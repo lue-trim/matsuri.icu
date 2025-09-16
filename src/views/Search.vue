@@ -6,11 +6,11 @@
         <div v-if="recaptcha_succeed">
             <div class="container">
                 <h2>数据库检索</h2>
-                <div class="form-group">
+                <div class="form-group container options-container">
                     <label for="keyword">关键词</label>
                     <input class="form-control" type="text" id="keyword_input" placeholder="请输入搜索关键词...">
                 </div>
-                <div class="form-group">
+                <div class="form-group container options-container">
                     <label for="type">搜索范围</label>
                     <select id="type" class="dropdown form-control">
                         <option value="all">全部</option>
@@ -19,15 +19,15 @@
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label for="startTime">开始时间:</label>
+                <div class="form-group container options-container">
+                    <label for="startTime">开始时间</label>
                     <input class="form-control" type="datetime-local" id="startTime">
                     
-                    <label for="endTime">结束时间:</label>
+                    <label for="endTime">结束时间</label>
                     <input class="form-control" type="datetime-local" id="endTime">
                 </div>
 
-                <div class="form-group">
+                <div class="form-group container options-container">
                     <!-- 占位符以保持布局 -->
                     <label></label>
                     <button class="btn btn-primary form-control" type="button" v-on:click="performSearch(1)">搜索</button>
@@ -35,7 +35,7 @@
             </div>
         </div>
 
-        <div id="results">
+        <div id="results" class="container">
             <h3>搜索结果</h3>
             <div id="resultList">
                 <p class="no-results">请输入条件并点击搜索按钮。</p>
@@ -198,7 +198,11 @@
                         },
                     ).then(
                         (promise) => {
-                            return promise.json()
+                            if (promise.status == 403) {
+                                throw new Error("验证码已过期，请刷新页面重试");
+                            } else {
+                                return promise.json()
+                            }
                         }
                     );
 
@@ -332,3 +336,9 @@
     // --- /模拟后端API ---
 
 </script>
+
+<style scoped>
+    .options-container {
+        padding: 5px 15px;
+    }
+</style>
