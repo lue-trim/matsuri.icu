@@ -30,7 +30,7 @@
                 <div class="form-group container options-container">
                     <!-- 占位符以保持布局 -->
                     <label></label>
-                    <button class="btn btn-primary form-control" type="button" v-on:click="performSearch(1)">搜索</button>
+                    <button class="btn btn-primary form-control" type="button" v-on:click="performSearch(0)">搜索</button>
                 </div>
             </div>
         </div>
