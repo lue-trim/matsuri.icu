@@ -30,7 +30,7 @@
                 <div class="form-group container options-container">
                     <!-- 占位符以保持布局 -->
                     <label></label>
-                    <button class="btn btn-primary form-control" type="button" v-on:click="performSearch(0)">搜索</button>
+                    <button class="btn btn-primary form-control" type="button" v-on:click="performSearch(1)">搜索</button>
                 </div>
             </div>
         </div>
@@ -91,10 +91,10 @@
         },
         mounted() {
             document.title = 'ICU for Viewers';
-            setTimeout(() => {
-                window.grecaptcha.render("recaptcha", {sitekey: this.recaptcha_sitekey, callback: this.challenge_callback})
-            }, 200);
-            // this.challenge_callback(1);
+            // setTimeout(() => {
+            //     window.grecaptcha.render("recaptcha", {sitekey: this.recaptcha_sitekey, callback: this.challenge_callback})
+            // }, 200);
+            this.challenge_callback(1);
         },
         methods: {
             challenge_callback(token) {
@@ -154,15 +154,17 @@
                     paginationControls.style.display = 'flex';
                 } else {
                     paginationControls.style.display = 'none';
+                    this.data = [];
                 }
             },
-            performSearch: async function(page = 1) {
+            performSearch: async function(page = 0) {
                 const keyword = document.getElementById('keyword_input').value.trim();
                 const type = document.getElementById('type').value;
                 const startTime = document.getElementById('startTime').value;
                 const endTime = document.getElementById('endTime').value;
 
                 const resultList = document.getElementById('resultList');
+                this.data = [];
                 resultList.innerHTML = '<p class="no-results">搜索中...</p>'; // 显示加载状态
                 document.getElementById('paginationControls').style.display = 'none'; // 隐藏分页控件
 
@@ -186,7 +188,7 @@
                     // TODO: 将下面的 mockApiSearchResponse 替换为您的实际后端API调用
                     // 例如: const response = await fetch('/api/search', { method: 'POST', headers: {...}, body: JSON.stringify(requestData) });
                     //       const data = await response.json();
-                    const data = await fetch(
+                    const response = await fetch(
                         this.apiRoot + '/search_advanced', 
                         { 
                             method: 'POST', 
@@ -196,15 +198,11 @@
                             },
                             body: JSON.stringify(requestData)
                         },
-                    ).then(
-                        (promise) => {
-                            if (promise.status == 403) {
-                                throw new Error("验证码已过期，请刷新页面重试");
-                            } else {
-                                return promise.json()
-                            }
-                        }
                     );
+                    if (response.status == 403) {
+                        throw new Error("验证码已过期，请刷新页面重试");
+                    }
+                    var data = await response.json();
 
                     // console.log(data)
                     if (data.success) {
@@ -213,9 +211,20 @@
                         this.totalPages = data.pagination.totalPages;
                         this.currentPage = data.pagination.currentPage;
 
+                        // 更新相对时间信息
+                        // console.log(res)
+                        data.data.forEach(clip => {
+                            let start_time = clip.clip_info.start_time
+                            clip.full_comments.forEach(comment => {
+                                comment.relative_time = comment.time - start_time;
+                            });
+                        });
+
+
+                        // 更新容器
                         if (data.data && data.data.length > 0) {
                             let resultsHtml = '';
-                            this.data = data.data
+                            this.data = data.data;
                             // data.data.forEach(clip => {
                             //     resultsHtml += `
                             //         <ClipList :clip=${clip.clip_info} :detail_view="true" :viewer_view="true" :webp_support="webp_support"/>
