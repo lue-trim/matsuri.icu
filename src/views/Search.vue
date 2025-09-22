@@ -91,10 +91,10 @@
         },
         mounted() {
             document.title = 'ICU for Viewers';
-            // setTimeout(() => {
-            //     window.grecaptcha.render("recaptcha", {sitekey: this.recaptcha_sitekey, callback: this.challenge_callback})
-            // }, 200);
-            this.challenge_callback(1);
+            setTimeout(() => {
+                window.grecaptcha.render("recaptcha", {sitekey: this.recaptcha_sitekey, callback: this.challenge_callback})
+            }, 200);
+            // this.challenge_callback(1);
         },
         methods: {
             challenge_callback(token) {
