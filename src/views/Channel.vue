@@ -36,6 +36,17 @@
         <div v-else>
             <OffComments :uid="channel"/>
         </div>
+        <div class="container" id="paginationControls" align="center">
+            <span class="mid comment-container">
+                <button class="btn btn-primary" id="prevPage" @click="changePage(currentPage - 1)">＜</button>
+                <span id="currentPageDisplay">1</span>/<span id="totalPagesDisplay">1</span>页 (共<span id="totalItemsDisplay">0</span>条)
+                <button class="btn btn-primary" id="nextPage" @click="changePage(currentPage + 1)">＞</button>
+            </span>
+            <span class="mid comment-container">
+                <input type="number" class="form-control text" style="max-width: 120px;display: inline" id="pageInput" min="1" placeholder="页码" @keyup.enter="jumpToPage()"/>
+                <button class="btn btn-primary" @click="jumpToPage()">跳转</button>
+            </span>
+        </div>
     </div>
 </template>
 
@@ -80,28 +91,122 @@
                 document.getElementById('off_button').classList.add('active');
                 this.online_clips = false;
             },
-            get_list: function () {
-                let url;
+            // get_list: function () {
+            //     let url;
+            //     this.$root.loading = true;
+            //     url = this.apiRoot + '/channel/' + this.channel.toString() + '/clips';
+            //     this.$http
+            //         .get(url)
+            //         .then(function (response) {
+            //             if (response.data.status === 0) {
+            //                 this.clip_list = response.data.data;
+            //                 this.$root.loading = false;
+            //             }
+            //         }.bind(this))
+            // },
+            // scrollFunc() {
+            //     if (document.body.clientHeight - window.scrollY - window.innerHeight < (document.body.clientHeight / this.showed)) {
+            //         if (this.showed < this.clip_list.length)
+            //             this.showed += 10;
+            //     }
+            // },
+            performSearch: async function(page = 1) {
                 this.$root.loading = true;
-                url = this.apiRoot + '/channel/' + this.channel.toString() + '/clips';
-                this.$http
-                    .get(url)
-                    .then(function (response) {
-                        if (response.data.status === 0) {
-                            this.clip_list = response.data.data;
-                            this.$root.loading = false;
-                        }
-                    }.bind(this))
-            },
-            scrollFunc() {
-                if (document.body.clientHeight - window.scrollY - window.innerHeight < (document.body.clientHeight / this.showed)) {
-                    if (this.showed < this.clip_list.length)
-                        this.showed += 10;
+                document.getElementById('paginationControls').disabled = true; // 隐藏分页控件
+
+                // 准备发送到后端的数据
+                const requestData = {
+                    page: page,       // 传递页码
+                };
+
+                try {
+                    const response = await fetch(
+                        this.apiRoot + '/channel/' + this.channel.toString() + '/clips?page=' + page.toString(), 
+                        { 
+                            method: 'POST', 
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                        },
+                    );
+                    var data = await response.json();
+
+                    // console.log(data)
+                    if (data.success) {
+                        // 更新分页状态
+                        this.totalItems = data.pagination.totalItems;
+                        this.totalPages = data.pagination.totalPages;
+                        this.currentPage = data.pagination.currentPage;
+
+                        // 更新容器
+                        this.clip_list = data.data;
+                        this.$root.loading = false;
+                    } else {
+                        throw new Error(data.message || "后端返回错误");
+                    }
+                } catch (error) {
+                    console.error('请求出错:', error);
+                    this.totalItems = 0;
+                    this.totalPages = 0;
+                    this.currentPage = 1;
+                } finally {
+                    // 无论成功与否，都更新分页控件
+                    // document.getElementById("paginationControls").updatePaginationControls();
+                    // Pagination
+                    this.updatePaginationControls();
                 }
-            }
+            },
+            changePage: async function(newPage) {
+                if (newPage >= 1 && newPage <= this.totalPages) {
+                // if (newPage >= 1) {
+                    this.currentPage = newPage;
+                    // 重新执行搜索，但使用当前的查询条件和新的页码
+                    await this.performSearch(this.currentPage);
+                }
+            },
+            jumpToPage: async function() {
+                const inputElement = document.getElementById('pageInput');
+                const pageStr = inputElement.value.trim();
+                
+                // 输入验证
+                if (!pageStr) {
+                    pageStr = '1';
+                }
+                
+                const targetPage = parseInt(pageStr, 10);
+                if (isNaN(targetPage) || targetPage < 1) {
+                    alert('请输入有效的正整数页码！');
+                    return;
+                }
+                
+                if (targetPage > this.totalPages) {
+                    alert(`页码超出范围！最大页码为 ${this.totalPages}。`);
+                    return;
+                }
+                
+                // 如果页码有效，则执行搜索
+                this.currentPage = targetPage;
+                await this.performSearch(this.currentPage);
+            },
+            updatePaginationControls: function() {
+                document.getElementById('currentPageDisplay').textContent = this.currentPage;
+                document.getElementById('totalPagesDisplay').textContent = this.totalPages;
+                document.getElementById('totalItemsDisplay').textContent = this.totalItems;
+
+                document.getElementById('prevPage').disabled = (this.currentPage <= 1);
+                document.getElementById('nextPage').disabled = (this.currentPage >= this.totalPages);
+
+                const paginationControls = document.getElementById('paginationControls');
+                if (this.totalItems > 0) {
+                    paginationControls.disabled = false;
+                } else {
+                    paginationControls.disabled = true;
+                    this.data = [];
+                }
+            },
         },
-        mounted() {
-            window.addEventListener('scroll', this.scrollFunc);
+        mounted: async function () {
+            // window.addEventListener('scroll', this.scrollFunc);
             if (Object.entries(this.channel_info).length === 0) {
                 console.log('Fetch channel info');
                 this.$http
@@ -112,7 +217,8 @@
                         }
                     }.bind(this))
             }
-            this.get_list();
+            // this.get_list();
+            await this.performSearch(1);
 
         },
         computed: {
@@ -136,13 +242,19 @@
                 return null
             },
             display_clips: function () {
-                return this.clip_list.filter((clip, index) => index < this.showed)
+                return this.clip_list//.filter((clip, index) => index < this.showed)
             }
         }
     }
 </script>
 
 <style scoped>
+    .comment-container {
+        padding: 5px 15px;
+        margin: 10px;
+        display: block;
+    }
+
     .image_container_channel {
         width: 100px;
         height: 100px;

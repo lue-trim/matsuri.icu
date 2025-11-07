@@ -8,7 +8,7 @@
                 <h2>数据库检索</h2>
                 <div class="form-group container options-container">
                     <label for="keyword">关键词</label>
-                    <input class="form-control" type="text" id="keyword_input" placeholder="请输入搜索关键词...">
+                    <input class="form-control" type="text" id="keyword_input" placeholder="请输入搜索关键词..." @keyup.enter="performSearch(1)">
                 </div>
                 <div class="form-group container options-container">
                     <label for="type">搜索范围</label>
@@ -51,10 +51,18 @@
                 </div>
                 <div class="pb-3"/>
             </div>
-            <div class="pagination" id="paginationControls" style="display: none;">
-                <button class="btn btn-primary" id="prevPage" v-on:click="changePage(currentPage - 1)">上一页</button>
-                <span class="pagination-info">第 <span id="currentPageDisplay">1</span> 页，共 <span id="totalPagesDisplay">1</span> 页 (共 <span id="totalItemsDisplay">0</span> 条)</span>
-                <button class="btn btn-primary" id="nextPage" v-on:click="changePage(currentPage + 1)">下一页</button>
+            <!-- <Pagination :currentPage="currentPage" :totalItems="totalItems" :totalPages="totalPages"/> -->
+
+            <div class="container" id="paginationControls" align="center" style="display: none;">
+                <span class="mid options-container">
+                    <button class="btn btn-primary" id="prevPage" @click="changePage(currentPage - 1)">＜</button>
+                    <span id="currentPageDisplay">1</span>/<span id="totalPagesDisplay">1</span>页 (共<span id="totalItemsDisplay">0</span>条)
+                    <button class="btn btn-primary" id="nextPage" @click="changePage(currentPage + 1)">＞</button>
+                </span>
+                <span class="mid options-container">
+                    <input type="number" class="form-control text" style="max-width: 120px;display: inline" id="pageInput" min="1" placeholder="页码" @keyup.enter="jumpToPage()"/>
+                    <button class="btn btn-primary" @click="jumpToPage()">跳转</button>
+                </span>
             </div>
         </div>
 
@@ -64,6 +72,7 @@
 <script>
     import ClipList from "@/components/ClipList";
     import LiveComment from "@/components/LiveComment";
+    // import Pagination from "@/components/Pagination";
 
     export default {
         name: "DanmakuSearchPage",
@@ -141,6 +150,30 @@
                     this.performSearch(this.currentPage);
                 }
             },
+            jumpToPage: function() {
+                const inputElement = document.getElementById('pageInput');
+                const pageStr = inputElement.value.trim();
+                
+                // 输入验证
+                if (!pageStr) {
+                    pageStr = '1';
+                }
+                
+                const targetPage = parseInt(pageStr, 10);
+                if (isNaN(targetPage) || targetPage < 1) {
+                    alert('请输入有效的正整数页码！');
+                    return;
+                }
+                
+                if (targetPage > this.totalPages) {
+                    alert(`页码超出范围！最大页码为 ${this.totalPages}。`);
+                    return;
+                }
+                
+                // 如果页码有效，则执行搜索
+                this.currentPage = targetPage;
+                this.performSearch(this.currentPage);
+            },
             updatePaginationControls: function() {
                 document.getElementById('currentPageDisplay').textContent = this.currentPage;
                 document.getElementById('totalPagesDisplay').textContent = this.totalPages;
@@ -185,9 +218,6 @@
                 };
 
                 try {
-                    // TODO: 将下面的 mockApiSearchResponse 替换为您的实际后端API调用
-                    // 例如: const response = await fetch('/api/search', { method: 'POST', headers: {...}, body: JSON.stringify(requestData) });
-                    //       const data = await response.json();
                     const response = await fetch(
                         this.apiRoot + '/search_advanced', 
                         { 
