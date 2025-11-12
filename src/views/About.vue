@@ -1,5 +1,34 @@
 <template>
-    <div class="pt-3">
+    <div>
+        <!-- Navigation Bar -->
+        <div class="form-group">
+            <ul class="tab-container">
+                <!-- <input type="text" v-model="danmakus_query" class="form-control" id="danmakus_search_input" placeholder="弹幕关键词"> -->
+                <li>
+                    <router-link :to="{ path:'/' }" tag='button' class="btn form-control">
+                        <span>主页</span>
+                    </router-link>
+                </li>
+                <li>
+                    <router-link :to="{ path:'/search/' }" tag='button' class="btn form-control"> <!-- style="width:200px"> -->
+                        <span>弹幕/语音数据检索</span>
+                    </router-link>
+                </li>
+                <li>
+                    <router-link :to="{ path:'/guard/' }" tag='button' class="btn form-control">
+                        <span>上舰记录查询</span>
+                    </router-link>
+                </li>
+                <li>
+                    <router-link :to="{ path:'/about/' }" tag='button' class="btn btn-primary form-control"> 
+                        <span>关于</span>
+                    </router-link>
+                </li>
+            </ul>
+        </div>
+
+
+        <!-- About -->
         <h1>关于</h1>
         <div class="row">
             <div class="col-4">
@@ -18,7 +47,6 @@
             <p>3. 不依赖其他插件，下播之后可以立即通过blrec的接口从弹幕数据里读取消息（并且因为直播场次是通过开播id+开播时间识别的，不会出现录播那种每过一天就会被当成新场次的<s>bug</s> feature）</p>
             <p>4. 受限于弹幕数据，2025年4月前经过数据补录添加的场次没办法正确显示封面</p>
             <p>5. 收入数据是按直播间实际打款（分成扣除前）计算的，没法精确统计礼物数量，所以所有礼物的个数都显示成1</p>
-            <p>6. float怎么限制小数位数。。有人教教吗</p>
             <p>以下是原说明..</p>
         </div>
         <div class="row">
@@ -57,11 +85,26 @@
 <script>
     export default {
         name: "AboutPage",
+        inject: ['apiRoot', 'siteName'],
         mounted(){
-            document.title = '关于 - ICU for Viewers'
+            document.title = '关于 - ' + this.siteName
         }
     }
 </script>
 
 <style scoped>
+    .tab-container{
+    display: table;
+    list-style-type: none;
+    padding: 0;
+    }
+    .tab-container li{
+        /* display:inline; */
+        float:left;
+    }
+    .tab-container li a{
+        display: block;
+        padding: 10px;
+    }
+
 </style>

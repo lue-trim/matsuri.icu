@@ -1,19 +1,55 @@
 <template>
     <div>
-        <h1>{{head_text}}</h1>
+        <!-- Navigation Bar -->
+        <div class="form-group">
+            <ul class="tab-container">
+                <!-- <input type="text" v-model="danmakus_query" class="form-control" id="danmakus_search_input" placeholder="弹幕关键词"> -->
+                <li>
+                    <router-link :to="{ path:'/' }" tag='button' class="btn btn-primary form-control">
+                        <span>主页</span>
+                    </router-link>
+                </li>
+                <li>
+                    <router-link :to="{ path:'/search/' }" tag='button' class="btn form-control"> <!-- style="width:200px"> -->
+                        <span>弹幕/语音数据检索</span>
+                    </router-link>
+                </li>
+                <li>
+                    <router-link :to="{ path:'/guard/' }" tag='button' class="btn form-control"> <!-- style="width:200px"> -->
+                        <span>上舰记录查询</span>
+                    </router-link>
+                </li>
+                <li>
+                    <router-link :to="{ path:'/about/' }" tag='button' class="btn form-control"> <!-- style="width:200px"> -->
+                        <span>关于</span>
+                    </router-link>
+                </li>
+            </ul>
+        </div>
+
+
+        <!-- Header -->
+        <div class="form-group">
+            <h1>{{head_text}}</h1>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <hr>
+            </div>
+        </div>
+
+
+        <!-- 直播间筛选 -->
+        <!-- <div class="form-group">
+            <label for="danmakus_search_input"> </label>
+        </div> -->
         <div class="form-group">
             <label for="search_input"> </label>
             <input type="text" v-model="search_query" class="form-control" id="search_input" placeholder="直播间筛选">
         </div>
-        <div class="form-group">
-            <label for="danmakus_search_input"> </label>
-            <div class="col-auto" style="display: flex">
-                <!-- <input type="text" v-model="danmakus_query" class="form-control" id="danmakus_search_input" placeholder="弹幕关键词"> -->
-                <router-link :to="{ path:'/search/' }" tag='button' class="btn btn-primary form-control"> <!-- style="width:200px"> -->
-                    数据库检索
-                </router-link>
-            </div>
-        </div>
+
+
+        <!-- Main -->
         <CardList v-for="channel in display_result" :channel="channel" :webp_support="webp_support"
                   :key="channel.bilibili_uid"/>
         <div class="empty"></div>
@@ -38,7 +74,7 @@ function true_compare(a, b) {
 export default {
     name: "HomePage",
     components: {CardList},
-    inject: ['apiRoot'],
+    inject: ['apiRoot', 'siteName'],
     data() {
         return {
             channel_data: JSON.parse(localStorage.getItem('channel_list') || "[]").sort(true_compare),
@@ -83,7 +119,7 @@ export default {
         }
     },
     mounted() {
-        document.title = 'ICU for Viewers';
+        document.title = '主页 - ' + this.siteName;
         window.addEventListener('scroll', this.scrollFunc);
         if (this.channel_list === null)
             this.$root.loading = true;
@@ -114,14 +150,29 @@ export default {
 </script>
 
 <style scoped>
-.empty {
-    padding-bottom: 30px;
-}
+    .empty {
+        padding-bottom: 30px;
+    }
 
-footer {
-    background: rgba(255,255,255,0.5);
-    bottom: 0;
-    font-size: 0.6rem;
-    position: fixed;
-}
+    footer {
+        background: rgba(255,255,255,0.5);
+        bottom: 0;
+        font-size: 0.6rem;
+        position: fixed;
+    }
+
+    .tab-container{
+        display: table;
+        list-style-type: none;
+        padding: 0;
+    }
+    .tab-container li{
+        /* display:inline; */
+        float:left;
+    }
+    .tab-container li a{
+        display: block;
+        padding: 10px;
+    }
+
 </style>

@@ -30,7 +30,8 @@ export default {
     components: {},
     provide() {
         return {
-            apiRoot: "https://matsuri.luetrim.top"
+            apiRoot: "https://matsuri.luetrim.top",
+            siteName: "卤鹅菌の弹幕站"
         }
     },
     data() {

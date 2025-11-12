@@ -1,11 +1,46 @@
 <template>
     <div>
+        <!-- Navigation Bar -->
+        <div class="form-group">
+            <ul class="tab-container">
+                <li>
+                    <router-link :to="{ path:'/' }" tag='button' class="btn form-control">
+                        <span>主页</span>
+                    </router-link>
+                </li>
+                <li>
+                    <router-link :to="{ path:'/search/' }" tag='button' class="btn btn-primary form-control"> <!-- style="width:200px"> -->
+                        <span>弹幕/语音数据检索</span>
+                    </router-link>
+                </li>
+                <li>
+                    <router-link :to="{ path:'/guard/' }" tag='button' class="btn form-control"> <!-- style="width:200px"> -->
+                        <span>上舰记录查询</span>
+                    </router-link>
+                </li>
+                <li>
+                    <router-link :to="{ path:'/about/' }" tag='button' class="btn form-control"> <!-- style="width:200px"> -->
+                        <span>关于</span>
+                    </router-link>
+                </li>
+            </ul>
+        </div>
+
+
+        <!-- Title -->
+        <h1>数据库检索</h1>
+        <div class="row">
+            <div class="col-4">
+                <hr>
+            </div>
+        </div>
+
+        <!-- Recaptcha and Title -->
         <div v-if="!recaptcha_succeed">
             <div id="recaptcha"/>
         </div>
         <div v-if="recaptcha_succeed">
             <div class="container">
-                <h2>数据库检索</h2>
                 <div class="form-group container options-container">
                     <label for="keyword">关键词</label>
                     <input class="form-control" type="text" id="keyword_input" placeholder="请输入搜索关键词..." @keyup.enter="performSearch(1)">
@@ -30,11 +65,13 @@
                 <div class="form-group container options-container">
                     <!-- 占位符以保持布局 -->
                     <label></label>
-                    <button class="btn btn-primary form-control" type="button" v-on:click="performSearch(1)">搜索</button>
+                    <button class="btn btn-primary form-control" type="button" v-on:click="performSearch(1)">搜索 (Enter)</button>
                 </div>
             </div>
         </div>
 
+
+        <!-- Result -->
         <div id="results" class="container">
             <h3>搜索结果</h3>
             <div id="resultList">
@@ -77,7 +114,7 @@
     export default {
         name: "DanmakuSearchPage",
         components: {ClipList, LiveComment},
-        inject: ['apiRoot'],
+        inject: ['apiRoot', 'siteName'],
         data() {
             return {
                 danmaku: this.$route.params.danmaku,
@@ -99,7 +136,7 @@
             }
         },
         mounted() {
-            document.title = 'ICU for Viewers';
+            document.title = '数据库检索 - ' + this.siteName;
             setTimeout(() => {
                 window.grecaptcha.render("recaptcha", {sitekey: this.recaptcha_sitekey, callback: this.challenge_callback})
             }, 200);
@@ -380,4 +417,19 @@
     .options-container {
         padding: 5px 15px;
     }
+
+    .tab-container{
+        display: table;
+        list-style-type: none;
+        padding: 0;
+    }
+    .tab-container li{
+        /* display:inline; */
+        float:left;
+    }
+    .tab-container li a{
+        display: block;
+        padding: 10px;
+    }
+
 </style>

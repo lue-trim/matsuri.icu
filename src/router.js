@@ -8,6 +8,7 @@ import About from "@/views/About";
 import NotFound from "@/views/NotFound";
 import DanmakuSearch from "@/views/DanmakuSearch";
 import Search from "@/views/Search"
+import GuardSearch from "@/views/GuardSearch"
 
 const routes = [
     { path: '/', name: 'home', component: Home },
@@ -16,6 +17,7 @@ const routes = [
     { path: '/viewer/:id', name: 'viewer', component: Viewer },
     { path: '/danmakusearch/:danmaku', name: 'danmaku_search', component: DanmakuSearch },
     { path: '/search', name: 'search', component: Search },
+    { path: '/guard/', name: 'guard', component: GuardSearch },
     { path: '/about', name: 'about', component: About },
     { path: '/:pathMatch(.*)', name: 'NotFound', component: NotFound },
     // {path: '/:catchAll(.*)', redirect: '/'}
