@@ -39,7 +39,7 @@
             </div>
             <div class="row pt-2 align-items-center" v-if="state===0">
                 <div class="col-auto">
-                    <label for="search_input">标记词👀：</label>
+                    <label for="search_input">标记词(支持正则):</label>
                 </div>
                 <div class="col-auto">
                     <input type="text" id="search_input" v-model="search_text" class="form-control">
@@ -172,7 +172,12 @@ export default {
             else full_comments = this.full_comments.filter(comment => comment.time >= this.time_range.start && comment.time <= this.time_range.end)
             if (this.state === 0) {
                 if (this.search_text.length === 0) return full_comments;
-                return full_comments.filter(comment => comment.text.includes(this.search_text) || comment.username.includes(this.search_text))
+                try {
+                    var reg = new RegExp(this.search_text);
+                    return full_comments.filter(comment => reg.test(comment.text) || reg.test(comment.username))
+                } catch(e) {
+                    return full_comments
+                }
             } else if (this.state === 1) {
                 if (this.translated_comments.length === 0) this.get_translate_comments();
                 return this.translated_comments;
@@ -230,7 +235,7 @@ export default {
             this.show_comments = true;
             this.$root.loading = true;
             this.$http
-            .get('//matsuri.luetrim.top/clip/' + this.id + '/comments')
+            .get(this.apiRoot + '/clip/' + this.id + '/comments')
             .then(function (response) {
                 if (response.data.status === 0) {
                     let full_comments = [];

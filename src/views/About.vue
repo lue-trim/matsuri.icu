@@ -39,14 +39,16 @@
             <p></p>
             <p>原作者：<a target="_blank" rel="noopener noreferrer" href="https://github.com/brainbush">brainbush</a>，修改：<a class="link" target="_blank" rel="noopener noreferrer" href="https://github.com/lue-trim/">卤鹅菌</a></p>
             <p>项目地址详见：</p>
-            <p>前端（只改了一下后端api地址）<a target="_blank" rel="noopener noreferrer" href="https://github.com/lue-trim/matsuri.icu">https://github.com/lue-trim/matsuri.icu</a></p>
+            <p>前端（在原版基础上改的, 添加了一些方便的小功能）<a target="_blank" rel="noopener noreferrer" href="https://github.com/lue-trim/matsuri.icu">https://github.com/lue-trim/matsuri.icu</a></p>
             <p>后端（自己手搓的）<a target="_blank" rel="noopener noreferrer" href="https://github.com/lue-trim/matsuri-api">https://github.com/lue-trim/matsuri-api</a></p>
             <p>和原版对比的主要亮点：</p>
             <p>1. 纯Python实现</p>
             <p>2. 观看人数直接通过直播间推送的“xxx人看过”信息中读取</p>
-            <p>3. 不依赖其他插件，下播之后可以立即通过blrec的接口从弹幕数据里读取消息（并且因为直播场次是通过开播id+开播时间识别的，不会出现录播那种每过一天就会被当成新场次的<s>bug</s> feature）</p>
-            <p>4. 受限于弹幕数据，2025年4月前经过数据补录添加的场次没办法正确显示封面</p>
-            <p>5. 收入数据是按直播间实际打款（分成扣除前）计算的，没法精确统计礼物数量，所以所有礼物的个数都显示成1</p>
+            <p>3. 不依赖其他插件, 下播之后可以立即通过blrec的接口从弹幕数据里读取消息(并且因为直播场次是通过开播id+开播时间识别的，不会出现录播那种每过一天就会被当成新场次的<s>bug</s> feature)</p>
+            <p>4. 受限于弹幕数据, 2025年4月前经过数据补录添加的场次没办法正确显示封面</p>
+            <p>5. 收入数据是按直播间实际打款金额(盲盒按实际消费金额计算)计算的, 没法精确统计礼物数量, 所以所有礼物的个数都显示成1</p>
+            <p>6. 自动识别语音字幕并作为翻译man弹幕显示</p>
+            <p>7. 其他体验优化: api支持在线切片和切弹幕(前端没做), 场次列表分页, 减少recaptcha重复验证, 弹幕正则搜索, 数据库和上舰记录查询</p>
             <p>以下是原说明..</p>
         </div>
         <div class="row">

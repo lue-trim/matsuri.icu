@@ -135,17 +135,34 @@
                 totalPages: 0,
             }
         },
-        mounted() {
+        mounted: async function() {
             document.title = '数据库检索 - ' + this.siteName;
             setTimeout(() => {
                 window.grecaptcha.render("recaptcha", {sitekey: this.recaptcha_sitekey, callback: this.challenge_callback})
             }, 200);
-            // this.challenge_callback(1);
+            const token = localStorage.getItem('recaptcha_token');
+
+            // 检查本地存储的token
+            if (token != null) {
+                const response = await fetch(
+                        this.apiRoot + '/auth/recaptcha', 
+                        { 
+                            method: 'GET', 
+                            headers: {
+                                "token": token,
+                                "Content-Type": "application/json",
+                            },
+                        },
+                    );
+                // console.log(response);
+                if (response.status == 200) this.challenge_callback(token);
+            }
         },
         methods: {
             challenge_callback(token) {
                 this.recaptcha_token = token;
                 this.recaptcha_succeed = true;
+                localStorage.setItem('recaptcha_token', token);
                 // window.addEventListener('scroll', this.scrollFunc);
                 // this.load_more();
                 // 可选：按回车键触发搜索
@@ -168,7 +185,7 @@
             load_more() {
                 this.$root.loading = true;
                 this.$http
-                .get(`//matsuri.luetrim.top/search/${this.danmaku}?page=${++this.page}`, {headers: {token: this.recaptcha_token}})
+                .get(`${this.apiRoot}/search/${this.danmaku}?page=${++this.page}`, {headers: {token: this.recaptcha_token}})
                 .then(function (response) {
                     if (response.data.status === 0) {
                         this.data = this.data.concat(response.data.data);
